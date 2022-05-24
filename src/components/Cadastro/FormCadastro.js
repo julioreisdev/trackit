@@ -1,16 +1,36 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import { useState } from "react";
+import axios from "axios";
 
 export default function FormCadastro() {
-  const [email, setEmail] = useState();
-  const [senha, setSenha] = useState();
-  const [nome, setNome] = useState();
-  const [foto, setFoto] = useState();
+  const [email, setEmail] = useState("");
+  const [senha, setSenha] = useState("");
+  const [nome, setNome] = useState("");
+  const [foto, setFoto] = useState("");
+
+  function cadastrar(e) {
+    e.preventDefault();
+
+    const URL = "https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/sign-up";
+
+    const promise = axios.post(URL, {
+      email: email,
+      name: nome,
+      image: foto,
+      password: senha
+    });
+
+    promise.then(response => {
+      console.log(response.data);
+    }).catch(err => {
+      console.log(err)
+    });
+  }
 
   return (
     <Container>
-      <form>
+      <form onSubmit={(e) => cadastrar(e)}>
         <input
           id="email"
           type="email"

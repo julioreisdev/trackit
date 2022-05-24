@@ -1,14 +1,37 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import { useState } from "react";
+import axios from "axios";
 
 export default function FormLogin() {
-  const [email, setEmail] = useState();
-  const [senha, setSenha] = useState();
+  const [email, setEmail] = useState("");
+  const [senha, setSenha] = useState("");
+  const [token, setToken] = useState("");
+
+  function entrar(e) {
+    e.preventDefault();
+
+    const URL =
+      "https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/login";
+
+    const promise = axios.post(URL, {
+      email: email,
+      password: senha,
+    });
+
+    promise
+      .then((response) => {
+        console.log("OK");
+        setToken(response.data.token);
+      })
+      .catch((err) => {
+        console.log("ERROR");
+      });
+  }
 
   return (
     <Container>
-      <form>
+      <form onSubmit={(e) => entrar(e)}>
         <input
           id="email"
           type="email"
