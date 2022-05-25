@@ -3,17 +3,26 @@ import { Link } from "react-router-dom";
 import { useState } from "react";
 import axios from "axios";
 import LoaderBotao from "../Loader/LoaderBotao";
+import { useNavigate } from "react-router-dom";
+import { useContext } from "react";
+import DadosUser from "../Context/DadosUser";
 
-export default function FormLogin() {
+export default function FormLogin({ disable }) {
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
   const [token, setToken] = useState("");
   const [send, setSend] = useState(false);
 
+  const { imgUser, setImgUser } = useContext(DadosUser);
+  const { nomeUser, setNomeUser } = useContext(DadosUser);
+
+  const navigate = useNavigate();
+
   function entrar(e) {
     e.preventDefault();
 
     setSend(true);
+    disable(true);
 
     const URL =
       "https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/login";
@@ -26,12 +35,19 @@ export default function FormLogin() {
     promise
       .then((response) => {
         console.log("OK");
+
         setToken(response.data.token);
+        setImgUser(response.data.image);
+        setNomeUser(response.data.name);
         setSend(false);
+        disable(false);
+        navigate("/hoje");
       })
       .catch((err) => {
         console.log("ERROR");
+        alert("TENTE NOVAMENTE!");
         setSend(false);
+        disable(false);
       });
   }
 

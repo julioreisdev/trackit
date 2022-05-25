@@ -1,12 +1,17 @@
 import styled from "styled-components";
 import logo from "../../assets/img/logo.png";
 import FormLogin from "./FormLogin";
+import DisableAll from "../Disable/DisableAll";
+import { useState } from "react";
 
 export default function Login() {
+  const [disable, setDisable] = useState(false);
+
   return (
     <Container>
       <Logo src={logo} alt="Logo TrackIt" />
-      <FormLogin />
+      <FormLogin disable={setDisable} />
+      {disable ? <DisableAll /> : null}
     </Container>
   );
 }

@@ -3,18 +3,22 @@ import { Link } from "react-router-dom";
 import { useState } from "react";
 import axios from "axios";
 import LoaderBotao from "../Loader/LoaderBotao";
+import { useNavigate } from "react-router-dom";
 
-export default function FormCadastro() {
+export default function FormCadastro({ disable }) {
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
   const [nome, setNome] = useState("");
   const [foto, setFoto] = useState("");
   const [send, setSend] = useState(false);
 
+  const navigate = useNavigate();
+
   function cadastrar(e) {
     e.preventDefault();
 
     setSend(true);
+    disable(true);
 
     const URL =
       "https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/sign-up";
@@ -30,10 +34,14 @@ export default function FormCadastro() {
       .then((response) => {
         console.log(response.data);
         setSend(false);
+        disable(false);
+        navigate("/");
       })
       .catch((err) => {
         console.log(err);
+        alert("TENTE NOVAMENTE!");
         setSend(false);
+        disable(false);
       });
   }
 
