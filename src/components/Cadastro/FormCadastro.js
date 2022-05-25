@@ -2,30 +2,39 @@ import styled from "styled-components";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import axios from "axios";
+import LoaderBotao from "../Loader/LoaderBotao";
 
 export default function FormCadastro() {
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
   const [nome, setNome] = useState("");
   const [foto, setFoto] = useState("");
+  const [send, setSend] = useState(false);
 
   function cadastrar(e) {
     e.preventDefault();
 
-    const URL = "https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/sign-up";
+    setSend(true);
+
+    const URL =
+      "https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/sign-up";
 
     const promise = axios.post(URL, {
       email: email,
       name: nome,
       image: foto,
-      password: senha
+      password: senha,
     });
 
-    promise.then(response => {
-      console.log(response.data);
-    }).catch(err => {
-      console.log(err)
-    });
+    promise
+      .then((response) => {
+        console.log(response.data);
+        setSend(false);
+      })
+      .catch((err) => {
+        console.log(err);
+        setSend(false);
+      });
   }
 
   return (
@@ -63,7 +72,7 @@ export default function FormCadastro() {
           onChange={(e) => setFoto(e.target.value)}
           value={foto}
         />
-        <Botao type="submit">Cadastrar</Botao>
+        <Botao type="submit">{send ? <LoaderBotao /> : "Cadastrar"}</Botao>
         <Link to="/" className="link">
           <p>Já tem uma conta? Faça login!</p>
         </Link>

@@ -2,14 +2,18 @@ import styled from "styled-components";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import axios from "axios";
+import LoaderBotao from "../Loader/LoaderBotao";
 
 export default function FormLogin() {
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
   const [token, setToken] = useState("");
+  const [send, setSend] = useState(false);
 
   function entrar(e) {
     e.preventDefault();
+
+    setSend(true);
 
     const URL =
       "https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/login";
@@ -23,9 +27,11 @@ export default function FormLogin() {
       .then((response) => {
         console.log("OK");
         setToken(response.data.token);
+        setSend(false);
       })
       .catch((err) => {
         console.log("ERROR");
+        setSend(false);
       });
   }
 
@@ -48,7 +54,7 @@ export default function FormLogin() {
           onChange={(e) => setSenha(e.target.value)}
           value={senha}
         />
-        <Botao type="submit">Entrar</Botao>
+        <Botao type="submit">{send ? <LoaderBotao /> : "Entrar"}</Botao>
         <Link to="/cadastro" className="link">
           <p>Não tem uma conta? Cadastre-se!</p>
         </Link>
