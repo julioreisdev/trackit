@@ -10,11 +10,12 @@ import DadosUser from "../Context/DadosUser";
 export default function FormLogin({ disable }) {
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
-  const [token, setToken] = useState("");
   const [send, setSend] = useState(false);
 
-  const { imgUser, setImgUser } = useContext(DadosUser);
-  const { nomeUser, setNomeUser } = useContext(DadosUser);
+  const { token, setToken } = useContext(DadosUser);
+  const { setConfig } = useContext(DadosUser);
+  const { setImgUser } = useContext(DadosUser);
+  const { setNomeUser } = useContext(DadosUser);
 
   const navigate = useNavigate();
 
@@ -35,12 +36,18 @@ export default function FormLogin({ disable }) {
     promise
       .then((response) => {
         console.log("OK");
-
-        setToken(response.data.token);
         setImgUser(response.data.image);
         setNomeUser(response.data.name);
         setSend(false);
         disable(false);
+
+        setToken(response.data.token);
+        setConfig({
+          headers: {
+            Authorization: `Bearer ${response.data.token}`,
+          },
+        });
+
         navigate("/hoje");
       })
       .catch((err) => {

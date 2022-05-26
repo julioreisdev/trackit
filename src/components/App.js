@@ -10,17 +10,26 @@ import { useState } from "react";
 export default function App() {
   const [imgUser, setImgUser] = useState();
   const [nomeUser, setNomeUser] = useState();
+  const [habitos, setHabitos] = useState();
+  const [token, setToken] = useState();
+  const [config, setConfig] = useState({});
 
   return (
     <BrowserRouter>
-      <DadosUser.Provider value={
-        {
+      <DadosUser.Provider
+        value={{
           imgUser,
           setImgUser,
           nomeUser,
-          setNomeUser
-        }
-      }>
+          setNomeUser,
+          habitos,
+          setHabitos,
+          config,
+          setConfig,
+          token,
+          setToken,
+        }}
+      >
         <Routes>
           <Route path="/" element={<Login />} />
           <Route path="/hoje" element={<Hoje />} />
