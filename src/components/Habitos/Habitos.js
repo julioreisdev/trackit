@@ -6,6 +6,8 @@ import axios from "axios";
 import FormCriarHabito from "./FormCriarHabito";
 
 export default function Habitos() {
+  const [send, setSend] = useState(false);
+
   const textoSemHabitos =
     "Você não tem nenhum hábito cadastrado ainda. Adicione um hábito para começar a trackear!";
 
@@ -37,7 +39,14 @@ export default function Habitos() {
         <h2>Meus hábitos</h2>
         <p onClick={() => setTap(true)}>+</p>
       </Cabecalho>
-      {tap ? <FormCriarHabito tap={tap} setTap={setTap} /> : null}
+      {tap ? (
+        <FormCriarHabito
+          tap={tap}
+          setTap={setTap}
+          send={send}
+          setSend={setSend}
+        />
+      ) : null}
       {habitos.length === 0 ? <Frase>{textoSemHabitos}</Frase> : null}
     </Container>
   );

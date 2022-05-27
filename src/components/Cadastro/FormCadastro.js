@@ -80,7 +80,7 @@ export default function FormCadastro({ disable }) {
           onChange={(e) => setFoto(e.target.value)}
           value={foto}
         />
-        <Botao type="submit">{send ? <LoaderBotao /> : "Cadastrar"}</Botao>
+        <Botao type="submit">{send ? <LoaderBotao w="40" h="20" /> : "Cadastrar"}</Botao>
         <Link to="/" className="link">
           <p>Já tem uma conta? Faça login!</p>
         </Link>

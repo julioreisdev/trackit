@@ -9,5 +9,5 @@ const Container = styled.div`
   height: 100%;
   position: absolute;
   opacity: 0.2;
-  background-color: aliceblue;
+  background-color: #fff;
 `;

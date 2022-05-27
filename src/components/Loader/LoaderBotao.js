@@ -1,10 +1,10 @@
 import { ThreeDots } from "react-loader-spinner";
 import styled from 'styled-components';
 
-export default function LoaderBotao () {
+export default function LoaderBotao ({w,h}) {
   return (
     <Container>
-      <ThreeDots color="#fff" height={20} width={40} />
+      <ThreeDots color="#fff" height={h} width={w} />
     </Container>
   );
 }

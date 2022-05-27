@@ -1,38 +1,203 @@
-import { useState } from "react";
+import axios from "axios";
+import { useState, useContext } from "react";
 import styled from "styled-components";
+import DadosUser from "../Context/DadosUser";
+import LoaderBotao from "../Loader/LoaderBotao";
 
-export default function FormCriarHabito({ tap, setTap }) {
-  const dias = ["D", "S", "T", "Q", "Q", "S", "S"];
+export default function FormCriarHabito({ tap, setTap, send, setSend }) {
+  const { config } = useContext(DadosUser);
 
-  function Dias(d, index) {
-    const [click, setClick] = useState(false);
+  const [dom, setDom] = useState({
+    id: 0,
+    selected: false,
+  });
+  const [seg, setSeg] = useState({
+    id: 1,
+    selected: false,
+  });
+  const [ter, setTer] = useState({
+    id: 2,
+    selected: false,
+  });
+  const [qua, setQua] = useState({
+    id: 3,
+    selected: false,
+  });
+  const [qui, setQui] = useState({
+    id: 4,
+    selected: false,
+  });
+  const [sex, setSex] = useState({
+    id: 5,
+    selected: false,
+  });
+  const [sab, setSab] = useState({
+    id: 6,
+    selected: false,
+  });
 
-    function select(e) {
-      setClick(!click);
+  const idsDias = [dom, seg, ter, qua, qui, sex, sab];
+
+  const dias = [
+    {
+      day: "D",
+      id: 0,
+      selected: false,
+    },
+    {
+      day: "S",
+      id: 1,
+      selected: false,
+    },
+    {
+      day: "T",
+      id: 2,
+      selected: false,
+    },
+    {
+      day: "Q",
+      id: 3,
+      selected: false,
+    },
+    {
+      day: "Q",
+      id: 4,
+      selected: false,
+    },
+    {
+      day: "S",
+      id: 5,
+      selected: false,
+    },
+    {
+      day: "S",
+      id: 6,
+      selected: false,
+    },
+  ];
+  const [nomeHabito, setNomeHabito] = useState("");
+
+  function select(e, d, click, setClick) {
+    setClick(!click);
+    d.selected = !click;
+
+    if (d.id === 0) {
+      setDom({
+        id: 0,
+        selected: !click,
+      });
+    } else if (d.id === 1) {
+      setSeg({
+        id: 1,
+        selected: !click,
+      });
+    } else if (d.id === 2) {
+      setTer({
+        id: 2,
+        selected: !click,
+      });
+    } else if (d.id === 3) {
+      setQua({
+        id: 3,
+        selected: !click,
+      });
+    } else if (d.id === 4) {
+      setQui({
+        id: 4,
+        selected: !click,
+      });
+    } else if (d.id === 5) {
+      setSex({
+        id: 5,
+        selected: !click,
+      });
+    } else if (d.id === 6) {
+      setSab({
+        id: 6,
+        selected: !click,
+      });
     }
+    console.log(d.selected);
+  }
 
+  function Dias(d) {
+    const [click, setClick] = useState(false);
     return (
       <Dia
-        key={index}
-        onClick={(e) => select(e)}
+        key={d.id}
+        onClick={(e) => select(e, d, click, setClick)}
         color={click ? "#fff" : "#CFCFCF"}
         background={click ? "#CFCFCF" : "#fff"}
       >
-        {d}
+        {d.day}
       </Dia>
     );
   }
 
+  function submit(e) {
+    e.preventDefault();
+
+    setSend(true);
+
+    const selecionados = [];
+
+    for (let i = 0; i < idsDias.length; i++) {
+      if (idsDias[i].selected) {
+        selecionados.push(idsDias[i].id);
+      }
+    }
+
+    if (selecionados.length === 0) {
+      for (let i = 0; i < 7; i++) {
+        selecionados.push(i);
+      }
+    }
+
+    const URL =
+      "https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits";
+    const promise = axios.post(
+      URL,
+      {
+        name: nomeHabito,
+        days: selecionados,
+      },
+      config
+    );
+
+    console.log(dias);
+
+    promise
+      .then((response) => {
+        console.log(response.data);
+        console.log("OK");
+        setTap(false);
+        setSend(false);
+      })
+      .catch((err) => {
+        console.log(err);
+        console.log("ERROR");
+        setSend(false);
+      });
+  }
+
   return (
     <Container>
-      <form>
-        <input type="text" required placeholder="nome do hábito" />
-        <div>{dias.map((d, index) => Dias(d, index))}</div>
+      <form onSubmit={(e) => submit(e)}>
+        <input
+          type="text"
+          required
+          placeholder="nome do hábito"
+          onChange={(e) => setNomeHabito(e.target.value)}
+          value={nomeHabito}
+        />
+        <div>{dias.map((d) => Dias(d))}</div>
         <Botoes>
           <p value="cancelar" onClick={() => setTap(false)}>
             Cancelar
           </p>
-          <button value="salvar">Salvar</button>
+          <button value="salvar">
+            {send ? <LoaderBotao w="40" h="10" /> : "Salvar"}
+          </button>
         </Botoes>
       </form>
     </Container>

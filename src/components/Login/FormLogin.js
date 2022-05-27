@@ -77,7 +77,7 @@ export default function FormLogin({ disable }) {
           onChange={(e) => setSenha(e.target.value)}
           value={senha}
         />
-        <Botao type="submit">{send ? <LoaderBotao /> : "Entrar"}</Botao>
+        <Botao type="submit">{send ? <LoaderBotao w="40" h="20" /> : "Entrar"}</Botao>
         <Link to="/cadastro" className="link">
           <p>Não tem uma conta? Cadastre-se!</p>
         </Link>
