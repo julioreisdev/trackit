@@ -6,11 +6,12 @@ import Cadastro from "./Cadastro/Cadastro";
 import Hoje from "./Hoje/Hoje";
 import DadosUser from "./Context/DadosUser";
 import { useState } from "react";
+import Habitos from "./Habitos/Habitos";
 
 export default function App() {
   const [imgUser, setImgUser] = useState();
   const [nomeUser, setNomeUser] = useState();
-  const [habitos, setHabitos] = useState();
+  const [habitos, setHabitos] = useState([]);
   const [token, setToken] = useState();
   const [config, setConfig] = useState({});
 
@@ -33,6 +34,7 @@ export default function App() {
         <Routes>
           <Route path="/" element={<Login />} />
           <Route path="/hoje" element={<Hoje />} />
+          <Route path="/habitos" element={<Habitos />} />
           <Route path="/cadastro" element={<Cadastro />} />
         </Routes>
       </DadosUser.Provider>
