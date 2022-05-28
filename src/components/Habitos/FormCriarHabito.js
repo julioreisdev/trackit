@@ -4,8 +4,16 @@ import styled from "styled-components";
 import DadosUser from "../Context/DadosUser";
 import LoaderBotao from "../Loader/LoaderBotao";
 
-export default function FormCriarHabito({ tap, setTap, send, setSend }) {
+export default function FormCriarHabito({
+  tap,
+  setTap,
+  send,
+  setSend,
+  controlador,
+  setControlador,
+}) {
   const { config } = useContext(DadosUser);
+  const { nomeHabito, setNomeHabito } = useContext(DadosUser);
 
   const [dom, setDom] = useState({
     id: 0,
@@ -75,7 +83,6 @@ export default function FormCriarHabito({ tap, setTap, send, setSend }) {
       selected: false,
     },
   ];
-  const [nomeHabito, setNomeHabito] = useState("");
 
   function select(e, d, click, setClick) {
     setClick(!click);
@@ -117,7 +124,6 @@ export default function FormCriarHabito({ tap, setTap, send, setSend }) {
         selected: !click,
       });
     }
-    console.log(d.selected);
   }
 
   function Dias(d) {
@@ -164,18 +170,18 @@ export default function FormCriarHabito({ tap, setTap, send, setSend }) {
       config
     );
 
-    console.log(dias);
-
     promise
       .then((response) => {
-        console.log(response.data);
         console.log("OK");
         setTap(false);
         setSend(false);
+        setNomeHabito("");
+        setControlador(controlador + 1);
       })
       .catch((err) => {
         console.log(err);
         console.log("ERROR");
+        alert("TENTE NOVAMENTE!");
         setSend(false);
       });
   }

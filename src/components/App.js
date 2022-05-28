@@ -14,6 +14,7 @@ export default function App() {
   const [habitos, setHabitos] = useState([]);
   const [token, setToken] = useState();
   const [config, setConfig] = useState({});
+  const [nomeHabito, setNomeHabito] = useState("");
 
   return (
     <BrowserRouter>
@@ -29,6 +30,8 @@ export default function App() {
           setConfig,
           token,
           setToken,
+          nomeHabito,
+          setNomeHabito,
         }}
       >
         <Routes>

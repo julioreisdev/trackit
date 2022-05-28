@@ -4,9 +4,11 @@ import { useContext, useEffect, useState } from "react";
 import DadosUser from "../Context/DadosUser";
 import axios from "axios";
 import FormCriarHabito from "./FormCriarHabito";
+import ListarHabitos from "./ListarHabitos";
 
 export default function Habitos() {
   const [send, setSend] = useState(false);
+  const [controlador, setControlador] = useState(0);
 
   const textoSemHabitos =
     "Você não tem nenhum hábito cadastrado ainda. Adicione um hábito para começar a trackear!";
@@ -25,12 +27,11 @@ export default function Habitos() {
     promise
       .then((response) => {
         setHabitos(response.data);
-        console.log(habitos);
       })
       .catch((err) => {
         console.log(err);
       });
-  }, []);
+  }, [controlador]);
 
   return (
     <Container>
@@ -45,16 +46,22 @@ export default function Habitos() {
           setTap={setTap}
           send={send}
           setSend={setSend}
+          controlador={controlador}
+          setControlador={setControlador}
         />
       ) : null}
       {habitos.length === 0 ? <Frase>{textoSemHabitos}</Frase> : null}
+      <ListarHabitos
+        controlador={controlador}
+        setControlador={setControlador}
+      />
     </Container>
   );
 }
 
 const Container = styled.div`
   width: 100%;
-  height: 100vh;
+  min-height: 100vh;
   background-color: #e5e5e5;
 `;
 

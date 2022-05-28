@@ -28,7 +28,8 @@ export default function Menu() {
   );
 }
 
-const Container = styled.div``;
+const Container = styled.div`
+`;
 
 const Header = styled.header`
   background-color: #126ba5;
@@ -42,6 +43,7 @@ const Header = styled.header`
   font-family: "Playball", cursive;
   position: fixed;
   top: 0;
+  z-index: 1;
 
   h1 {
     font-size: 2.5rem;
@@ -66,6 +68,7 @@ const Footer = styled.footer`
   align-items: center;
   padding: 0.5rem 1rem;
   box-shadow: 0 -1px 5px gainsboro;
+  z-index: 1;
 
   p {
     color: #52b6ff;
