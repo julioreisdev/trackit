@@ -7,6 +7,7 @@ import Hoje from "./Hoje/Hoje";
 import DadosUser from "./Context/DadosUser";
 import { useState } from "react";
 import Habitos from "./Habitos/Habitos";
+import Historico from "./Historico/Historico";
 
 export default function App() {
   const [imgUser, setImgUser] = useState();
@@ -38,6 +39,7 @@ export default function App() {
           <Route path="/" element={<Login />} />
           <Route path="/hoje" element={<Hoje />} />
           <Route path="/habitos" element={<Habitos />} />
+          <Route path="/historico" element={<Historico />} />
           <Route path="/cadastro" element={<Cadastro />} />
         </Routes>
       </DadosUser.Provider>

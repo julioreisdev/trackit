@@ -20,7 +20,7 @@ export default function Menu() {
         <Link className="link" to="/hoje">
           <div>Hoje</div>
         </Link>
-        <Link className="link" to="/historio">
+        <Link className="link" to="/historico">
           <p>Histórico</p>
         </Link>
       </Footer>
