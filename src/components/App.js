@@ -16,6 +16,9 @@ export default function App() {
   const [token, setToken] = useState();
   const [config, setConfig] = useState({});
   const [nomeHabito, setNomeHabito] = useState("");
+  const [habitosConcluidos, setHabitosConcluidos] = useState(0);
+
+  const [atualizar, setAtualizar] = useState(false);
 
   return (
     <BrowserRouter>
@@ -33,11 +36,16 @@ export default function App() {
           setToken,
           nomeHabito,
           setNomeHabito,
+          habitosConcluidos,
+          setHabitosConcluidos,
         }}
       >
         <Routes>
           <Route path="/" element={<Login />} />
-          <Route path="/hoje" element={<Hoje />} />
+          <Route
+            path="/hoje"
+            element={<Hoje atualizar={atualizar} setAtualizar={setAtualizar} />}
+          />
           <Route path="/habitos" element={<Habitos />} />
           <Route path="/historico" element={<Historico />} />
           <Route path="/cadastro" element={<Cadastro />} />
