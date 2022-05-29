@@ -46,13 +46,23 @@ export default function Hoje({ atualizar, setAtualizar }) {
     const [completo, setCompleto] = useState(false);
 
     function marcaDesmarcaHabito() {
-      const URL = `https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/${h.id}/check`;
-      const promise = axios.post(URL, {}, config);
-      promise
-        .then((response) => {})
-        .catch((err) => {
-          console.log(err);
-        });
+      if (h.done) {
+        const URL = `https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/${h.id}/uncheck`;
+        const promise = axios.post(URL, {}, config);
+        promise
+          .then((response) => {})
+          .catch((err) => {
+            console.log(err);
+          });
+      } else {
+        const URL = `https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/${h.id}/check`;
+        const promise = axios.post(URL, {}, config);
+        promise
+          .then((response) => {})
+          .catch((err) => {
+            console.log(err);
+          });
+      }
     }
 
     function completarHabito() {
