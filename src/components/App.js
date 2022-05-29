@@ -17,6 +17,7 @@ export default function App() {
   const [config, setConfig] = useState({});
   const [nomeHabito, setNomeHabito] = useState("");
   const [habitosConcluidos, setHabitosConcluidos] = useState(0);
+  const [percentual, setPercentual] = useState();
 
   const [atualizar, setAtualizar] = useState(false);
 
@@ -38,6 +39,8 @@ export default function App() {
           setNomeHabito,
           habitosConcluidos,
           setHabitosConcluidos,
+          percentual,
+          setPercentual,
         }}
       >
         <Routes>

@@ -14,6 +14,7 @@ export default function Hoje({ atualizar, setAtualizar }) {
   const [habitosHoje, setHabitosHoje] = useState([]);
 
   const { config } = useContext(DadosUser);
+  const { setPercentual } = useContext(DadosUser);
 
   let cont = 0;
 
@@ -111,6 +112,8 @@ export default function Hoje({ atualizar, setAtualizar }) {
   }
 
   porcent(habitosHoje);
+
+  setPercentual((cont * 100) / habitosHoje.length);
 
   return (
     <Container>

@@ -2,10 +2,13 @@ import styled from "styled-components";
 import { useContext } from "react";
 import DadosUser from "../Context/DadosUser";
 import { Link } from "react-router-dom";
+import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
+import "react-circular-progressbar/dist/styles.css";
 
 export default function Menu() {
   const { imgUser } = useContext(DadosUser);
   const { nomeUser } = useContext(DadosUser);
+  const { percentual } = useContext(DadosUser);
 
   return (
     <Container>
@@ -18,7 +21,21 @@ export default function Menu() {
           <p>Hábitos</p>
         </Link>
         <Link className="link" to="/hoje">
-          <div>Hoje</div>
+          {/* <div>Hoje</div> */}
+          <Circle>
+            <CircularProgressbar
+              text="Hoje"
+              maxValue={100}
+              value={percentual}
+              strokeWidth="10"
+              styles={buildStyles({
+                textSize: "24px",
+                textColor: "#fff",
+                trailColor: "none",
+                pathColor: `#fff`,
+              })}
+            />
+          </Circle>
         </Link>
         <Link className="link" to="/historico">
           <p>Histórico</p>
@@ -28,8 +45,7 @@ export default function Menu() {
   );
 }
 
-const Container = styled.div`
-`;
+const Container = styled.div``;
 
 const Header = styled.header`
   background-color: #126ba5;
@@ -73,19 +89,16 @@ const Footer = styled.footer`
   p {
     color: #52b6ff;
   }
+`;
 
-  div {
-    font-weight: bold;
-    width: 90px;
-    height: 90px;
-    color: #fff;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: 50%;
-    background-color: #52b6ff;
-    position: absolute;
-    bottom: 0.5rem;
-    right: calc(50% - 45px);
-  }
+const Circle = styled.div`
+  background-color: #52b6ff;
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  padding: 0.5rem;
+  position: absolute;
+  bottom: 0.5rem;
+  z-index: 2;
+  right: calc(50% - 45px);
 `;
